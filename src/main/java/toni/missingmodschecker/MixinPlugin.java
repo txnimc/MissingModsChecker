@@ -1,4 +1,4 @@
-package toni.examplemod;
+package toni.missingmodschecker;
 
 import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
 

@@ -1,4 +1,4 @@
 {
-  "example_mod.configuration.client": "client",
-  "example_mod.configuration.example": "example"
+  "missingmodschecker.configuration.client": "client",
+  "missingmodschecker.configuration.example": "example"
 }

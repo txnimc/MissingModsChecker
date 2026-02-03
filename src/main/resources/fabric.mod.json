@@ -14,16 +14,8 @@
 	"license": "${license}",
 	"icon": "assets/${id}/textures/mod_logo.png",
 	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"${group}.${namespace}.${name}"
-		],
-		"client": [
-			"${group}.${namespace}.${name}"
-		],
-		"fabric-datagen": [
-			"${group}.${namespace}.foundation.data.${name}Datagen"
-		]
+	"languageAdapters": {
+		"missingmodschecker": "toni.missingmodschecker.Bootstrap"
 	},
 	"mixins": [
 		"mixins.${mixinid}.json"

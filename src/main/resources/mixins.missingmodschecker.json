@@ -1,9 +1,9 @@
 {
   "required": true,
-  "package": "toni.examplemod.mixins",
+  "package": "toni.missingmodschecker.mixins",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
-  "plugin": "toni.examplemod.MixinPlugin",
+  "plugin": "toni.missingmodschecker.MixinPlugin",
   "mixins": [
   ],
   "injectors": {
