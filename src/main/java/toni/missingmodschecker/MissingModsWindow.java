@@ -1,7 +1,5 @@
 package toni.missingmodschecker;
 
-import net.minecraftforge.fml.loading.FMLPaths;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -64,8 +62,7 @@ public final class MissingModsWindow {
         title.setFont(title.getFont().deriveFont(Font.BOLD, 18f));
 
         JLabel subtitle = new JLabel(
-            "<html>The following mods are not available on the. " +
-                "These mods are required, but were not found in your mods folder. " +
+            "<html>The following mods are required, but were not found in your mods folder. " +
                 "Please download them, move them to your mods folder, and restart.</html>"
         );
         subtitle.setFont(subtitle.getFont().deriveFont(14.5f));
@@ -74,10 +71,10 @@ public final class MissingModsWindow {
         textPanel.add(title);
         textPanel.add(subtitle);
 
-        JComponent helpLink = createHelpLink();
-        helpLink.setAlignmentX(Component.LEFT_ALIGNMENT);
-        helpLink.setBorder(new EmptyBorder(8, 0, 0, 0));
-        textPanel.add(helpLink);
+//        JComponent helpLink = createHelpLink();
+//        helpLink.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        helpLink.setBorder(new EmptyBorder(8, 0, 0, 0));
+//        textPanel.add(helpLink);
 
         header.add(textPanel, BorderLayout.CENTER);
         return header;

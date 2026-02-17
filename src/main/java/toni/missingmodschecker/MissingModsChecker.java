@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import lombok.SneakyThrows;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +23,7 @@ import java.util.stream.Stream;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 #endif
 
@@ -32,7 +32,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
-
+import net.neoforged.fml.loading.FMLPaths;
 import java.util.Locale;
 #endif
 
@@ -45,17 +45,9 @@ public class MissingModsChecker
     public static final String MODNAME = "Missing Mods Checker";
     public static final String ID = "missingmodschecker";
     public static final Logger LOGGER = LogManager.getLogger(MODNAME);
-    public static final boolean FORCE_HEADLESS = Boolean.getBoolean("owo.sentinel.forceHeadless");
     private static final Gson GSON = new Gson();
     private static List<RequiredMod> requiredMods;
 
-    public static final String OWO_EXPLANATION = """
-            oωo-lib is a library used by most mods under the
-            Wisp Forest domain to ease development. This is
-            simply a convenient installer, as oωo is missing from your
-            installation. Should you not trust it, feel free to head to the
-            repository and download oωo yourself.
-            """;
 
     public MissingModsChecker(#if NEO IEventBus modEventBus, ModContainer modContainer #endif) { }
 
@@ -66,7 +58,7 @@ public class MissingModsChecker
         try {
             MissingModsWindow.open(requiredMods);
         } catch (Exception e) {
-            LOGGER.error("Error thrown while opening sentinel! Exiting", e);
+            LOGGER.error("Error thrown while opening! Exiting", e);
             Thread.sleep(10000);
             System.exit(1);
         }
@@ -81,7 +73,13 @@ public class MissingModsChecker
 
 
     public static List<RequiredMod> loadRequiredMods() throws IOException {
+        #if FORGE
         Path configPath = FMLPaths.CONFIGDIR.get().resolve("missing_mods_checker.json");
+        #elif NEO
+        Path configPath = FMLPaths.CONFIGDIR.get().resolve("missing_mods_checker.json");
+        #else
+        Path configPath = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir().resolve("missing_mods_checker.json");
+        #endif
 
         if (!Files.exists(configPath)) {
             return List.of();
@@ -112,8 +110,12 @@ public class MissingModsChecker
     }
 
     public static Path getModsFolder() {
+        #if FORGE
         return FMLPaths.MODSDIR.get();
-        // Path modsDir = net.fabricmc.loader.api.FabricLoader.getInstance().getGameDir().resolve("mods");
+        #elif NEO
+        #else
+        return net.fabricmc.loader.api.FabricLoader.getInstance().getGameDir().resolve("mods");
+        #endif
     }
 
     public static final class RequiredMod {
